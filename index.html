@@ -23,6 +23,8 @@
     --border: #e5e5e5;
     --card-bg-dark: #000000;
     --card-text-light: #ffffff;
+    --accent-green: #059669;
+    --accent-green-bright: #10b981;
 }
 
 body {
@@ -40,6 +42,11 @@ select {
 
 button {
     cursor: pointer;
+}
+
+.user-name-green {
+    color: var(--accent-green) !important;
+    font-weight: 800;
 }
 
 /* SVG ICON HELPER */
@@ -180,7 +187,7 @@ button {
 }
 
 .btn-success {
-    background: #000000;
+    background: var(--accent-green);
     color: #ffffff;
 }
 
@@ -323,12 +330,13 @@ button {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #000000;
+    background: var(--accent-green);
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
+    font-size: 13px;
 }
 
 .content {
@@ -393,7 +401,12 @@ button {
     color: var(--muted);
 }
 
-.positive, .negative {
+.positive {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+.negative {
     color: #000000;
     font-weight: 600;
 }
@@ -454,6 +467,7 @@ button {
     font-size: 36px;
     font-weight: 800;
     margin: 7px 0 25px;
+    color: #ffffff;
 }
 
 .balance-bottom {
@@ -570,7 +584,7 @@ button {
 }
 
 .account-balance {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 800;
     margin: 20px 0;
 }
@@ -735,12 +749,12 @@ th {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: #000000;
+    background: var(--accent-green);
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 800;
     margin-bottom: 15px;
 }
@@ -806,7 +820,7 @@ th {
     }
 
     .stat-value {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .quick-actions {
@@ -818,7 +832,7 @@ th {
     }
 
     .balance-amount {
-        font-size: 30px;
+        font-size: 26px;
     }
 
     .page-title h1 {
@@ -855,12 +869,12 @@ th {
 
             <form id="loginForm">
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>Email / Username</label>
                     <input
                         id="loginEmail"
                         class="form-control"
                         type="email"
-                        placeholder="simon@example.com"
+                        placeholder="Email / Username"
                         required
                     >
                 </div>
@@ -871,7 +885,7 @@ th {
                         id="loginPassword"
                         class="form-control"
                         type="password"
-                        placeholder="••••••••"
+                        placeholder="Password"
                         required
                     >
                 </div>
@@ -983,8 +997,8 @@ th {
                     </button>
 
                     <div class="user-chip">
-                        <div class="avatar">S</div>
-                        <span>Simon</span>
+                        <div class="avatar">FDT</div>
+                        <span class="user-name-green" id="topChipName">Flores Dave Thomas</span>
                     </div>
 
                 </div>
@@ -999,18 +1013,18 @@ th {
 
                     <div class="page-title">
                         <div>
-                            <h1>Good morning, Simon</h1>
+                            <h1>Good morning, <span class="user-name-green" id="greetingName">Flores Dave Thomas</span></h1>
                             <p>Here's your current balance and account overview.</p>
                         </div>
                     </div>
 
                     <div class="balance-card">
                         <div class="balance-small">
-                            TOTAL BALANCE
+                            TOTAL PORTFOLIO BALANCE
                         </div>
 
                         <div class="balance-amount" id="totalBalance">
-                            $4,000,000,000.00
+                            $2,678,278.33
                         </div>
 
                         <div class="balance-bottom">
@@ -1048,27 +1062,27 @@ th {
                     <div class="stats-grid">
 
                         <div class="stat-card">
-                            <div class="stat-label">Available Balance</div>
-                            <div class="stat-value">$4.00B</div>
-                            <div class="stat-change positive">+4.8% this month</div>
+                            <div class="stat-label">Checking Balance</div>
+                            <div class="stat-value" id="statChecking">$1,587,309.57</div>
+                            <div class="stat-change positive">+8.6% this month</div>
                         </div>
 
                         <div class="stat-card">
-                            <div class="stat-label">Income</div>
-                            <div class="stat-value">$5,420</div>
-                            <div class="stat-change positive">+8.2%</div>
+                            <div class="stat-label">Savings Balance</div>
+                            <div class="stat-value" id="statSavings">$1,090,968.76</div>
+                            <div class="stat-change positive">+4.2% growth</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-label">Monthly Income</div>
+                            <div class="stat-value">$142,500.00</div>
+                            <div class="stat-change positive">+12.4%</div>
                         </div>
 
                         <div class="stat-card">
                             <div class="stat-label">Expenses</div>
-                            <div class="stat-value">$2,180</div>
-                            <div class="stat-change negative">+2.4%</div>
-                        </div>
-
-                        <div class="stat-card">
-                            <div class="stat-label">Savings</div>
-                            <div class="stat-value">$7,620</div>
-                            <div class="stat-change positive">+6.1%</div>
+                            <div class="stat-value">$15,932.00</div>
+                            <div class="stat-change negative">-1.8%</div>
                         </div>
 
                     </div>
@@ -1094,14 +1108,14 @@ th {
                             <div class="account-card">
                                 <div class="account-top">
                                     <div>
-                                        <strong>Checking</strong>
+                                        <strong>Checking Account</strong>
                                         <div class="account-type">Primary account</div>
                                     </div>
                                     <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M8 10v11M12 10v11M16 10v11M20 10v11"/></svg>
                                 </div>
 
-                                <div class="account-balance">
-                                    $4,000,000,000.00
+                                <div class="account-balance" id="dashCheckingVal">
+                                    $1,587,309.57
                                 </div>
 
                                 <div class="account-number">
@@ -1114,14 +1128,14 @@ th {
                             <div class="account-card">
                                 <div class="account-top">
                                     <div>
-                                        <strong>Savings</strong>
-                                        <div class="account-type">Savings account</div>
+                                        <strong>Savings Account</strong>
+                                        <div class="account-type">High-Yield Savings</div>
                                     </div>
                                     <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 6v12M15 9.5C15 8.1 13.7 7 12 7s-3 1.1-3 2.5 1.3 2.5 3 2.5 3 1.1 3 2.5-1.3 2.5-3 2.5-3-1.1-3-2.5"/></svg>
                                 </div>
 
-                                <div class="account-balance">
-                                    $7,620.00
+                                <div class="account-balance" id="dashSavingsVal">
+                                    $1,090,968.76
                                 </div>
 
                                 <div class="account-number">
@@ -1160,7 +1174,7 @@ th {
                                 <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M8 10v11M12 10v11M16 10v11M20 10v11"/></svg>
                             </div>
 
-                            <div class="account-balance">$4,000,000,000.00</div>
+                            <div class="account-balance" id="pageCheckingVal">$1,587,309.57</div>
 
                             <p class="account-number">
                                 Account number: ••••••••4821
@@ -1187,7 +1201,7 @@ th {
                                 <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 6v12M15 9.5C15 8.1 13.7 7 12 7s-3 1.1-3 2.5 1.3 2.5 3 2.5 3 1.1 3 2.5-1.3 2.5-3 2.5-3-1.1-3-2.5"/></svg>
                             </div>
 
-                            <div class="account-balance">$7,620.00</div>
+                            <div class="account-balance" id="pageSavingsVal">$1,090,968.76</div>
 
                             <p class="account-number">
                                 Account number: ••••••••9154
@@ -1226,7 +1240,7 @@ th {
                             </div>
 
                             <div class="card-type">
-                                DEBIT
+                                BLACK DEBIT
                             </div>
 
                             <div class="card-number">
@@ -1236,7 +1250,7 @@ th {
                             <div class="card-details">
                                 <div>
                                     CARD HOLDER<br>
-                                    <strong>SIMON</strong>
+                                    <strong id="cardHolderName" class="user-name-green">FLORES DAVE THOMAS</strong>
                                 </div>
 
                                 <div>
@@ -1414,14 +1428,30 @@ th {
                         <div class="transaction">
                             <div class="transaction-left">
                                 <div class="tx-icon">
+                                    <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                </div>
+                                <div>
+                                    <div class="tx-name">
+                                        Wire Transfer Received
+                                    </div>
+                                    <div class="tx-date">
+                                        $126,568.00 credited to Checking Account (Oct 21, 2026)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="transaction">
+                            <div class="transaction-left">
+                                <div class="tx-icon">
                                     <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                                 </div>
                                 <div>
                                     <div class="tx-name">
-                                        Security notification
+                                        Security Notification
                                     </div>
                                     <div class="tx-date">
-                                        Login successful
+                                        Login successful from authorized device
                                     </div>
                                 </div>
                             </div>
@@ -1434,26 +1464,10 @@ th {
                                 </div>
                                 <div>
                                     <div class="tx-name">
-                                        Deposit completed
+                                        High Yield Interest Credited
                                     </div>
                                     <div class="tx-date">
-                                        Your deposit was successful.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="transaction">
-                            <div class="transaction-left">
-                                <div class="tx-icon">
-                                    <svg class="svg-icon" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                                </div>
-                                <div>
-                                    <div class="tx-name">
-                                        Card available
-                                    </div>
-                                    <div class="tx-date">
-                                        Your card is active and ready to use.
+                                        Monthly interest payout applied to Savings
                                     </div>
                                 </div>
                             </div>
@@ -1477,28 +1491,25 @@ th {
                     <div class="panel profile-box">
 
                         <div class="profile-avatar">
-                            S
+                            FDT
                         </div>
 
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input class="form-control" value="Simon">
+                            <input class="form-control user-name-green" id="profileName" value="Flores Dave Thomas">
                         </div>
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control"
-                                   value="simon@example.com">
+                            <input class="form-control" id="profileEmail" value="Floresdave28@outlook.com">
                         </div>
 
                         <div class="form-group">
                             <label>Phone</label>
-                            <input class="form-control"
-                                   value="+1 555 010 4821">
+                            <input class="form-control" value="+1 (555) 392-8104">
                         </div>
 
-                        <button class="btn btn-primary"
-                                onclick="toast('Profile updated')">
+                        <button class="btn btn-primary" onclick="updateProfile()">
                             Save Changes
                         </button>
 
@@ -1523,13 +1534,13 @@ th {
                             <div>
                                 <strong>Two-Factor Authentication</strong>
                                 <div class="tx-date">
-                                    Security verification
+                                    Security verification via Email & SMS
                                 </div>
                             </div>
 
                             <button class="btn btn-primary"
-                                    onclick="toast('2FA enabled')">
-                                Enable
+                                    onclick="toast('2FA is enabled')">
+                                Enabled
                             </button>
                         </div>
 
@@ -1618,8 +1629,8 @@ th {
             <div class="form-group">
                 <label>From Account</label>
                 <select class="form-control">
-                    <option>Checking •••• 4821</option>
-                    <option>Savings •••• 9154</option>
+                    <option>Checking •••• 4821 ($1,587,309.57)</option>
+                    <option>Savings •••• 9154 ($1,090,968.76)</option>
                 </select>
             </div>
 
@@ -1827,50 +1838,77 @@ th {
 <script>
 
 /* =========================
-   DATABASE
+   DATABASE INITIAL STATE
 ========================= */
 
-let accountData = JSON.parse(localStorage.getItem("capitalOneData")) || {
-
-    balance: 4000000000.00,
-
+const defaultAccountData = {
+    userName: "Flores Dave Thomas",
+    userEmail: "Floresdave28@outlook.com",
+    checkingBalance: 1587309.57,
+    savingsBalance: 1090968.76,
     transactions: [
-
         {
             description: "Wire Transfer Deposit",
             type: "Deposit",
-            amount: 4000000000.00,
-            date: "Aug 12, 2026",
+            amount: 126568.00,
+            date: "Oct 21, 2026",
             status: "Completed"
         },
-
         {
-            description: "Grocery Store",
-            type: "Card Purchase",
-            amount: -84.25,
-            date: "Aug 11, 2026",
+            description: "Investment Dividend Payout",
+            type: "Direct Deposit",
+            amount: 45200.00,
+            date: "Oct 19, 2026",
             status: "Completed"
         },
-
         {
-            description: "Internet Bill",
-            type: "Bill Payment",
-            amount: -65,
-            date: "Aug 10, 2026",
-            status: "Completed"
-        },
-
-        {
-            description: "Transfer from Savings",
+            description: "Luxury Escrow Transfer",
             type: "Transfer",
-            amount: 500,
-            date: "Aug 8, 2026",
+            amount: -18500.00,
+            date: "Oct 18, 2026",
+            status: "Completed"
+        },
+        {
+            description: "Corporate Consultancy Wire",
+            type: "Deposit",
+            amount: 87500.00,
+            date: "Oct 15, 2026",
+            status: "Completed"
+        },
+        {
+            description: "Private Jet Charter Inc",
+            type: "Card Purchase",
+            amount: -12450.00,
+            date: "Oct 12, 2026",
+            status: "Completed"
+        },
+        {
+            description: "High yield Savings Interest",
+            type: "Interest Payout",
+            amount: 14335.20,
+            date: "Oct 08, 2026",
+            status: "Completed"
+        },
+        {
+            description: "Property Management Fee",
+            type: "Bill Payment",
+            amount: -3500.00,
+            date: "Oct 05, 2026",
+            status: "Completed"
+        },
+        {
+            description: "International Wire Transfer",
+            type: "Transfer",
+            amount: 250000.00,
+            date: "Oct 02, 2026",
             status: "Completed"
         }
-
     ]
-
 };
+
+// Reset/Initialize with exact state
+let accountData = defaultAccountData;
+localStorage.setItem("capitalOneData_v3", JSON.stringify(accountData));
 
 
 /* =========================
@@ -1881,6 +1919,15 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     e.preventDefault();
 
+    const emailVal = document.getElementById("loginEmail").value.trim();
+    const passVal = document.getElementById("loginPassword").value.trim();
+
+    // Verification check for user credentials
+    if (passVal !== "282810" && passVal !== "") {
+        toast("Invalid credentials");
+        return;
+    }
+
     document.getElementById("loginPage").style.display = "none";
     document.getElementById("app").style.display = "block";
 
@@ -1888,17 +1935,20 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     renderTransactions();
     renderRecentTransactions();
 
-    toast("Welcome back to Capital One Bank");
+    toast("Welcome back, " + accountData.userName);
 
 });
 
 
 function logout() {
 
+    document.getElementById("loginEmail").value = "";
+    document.getElementById("loginPassword").value = "";
+
     document.getElementById("app").style.display = "none";
     document.getElementById("loginPage").style.display = "flex";
 
-    toast("Signed out");
+    toast("Signed out successfully");
 
 }
 
@@ -2014,31 +2064,40 @@ function toast(message) {
 
 
 /* =========================
-   BALANCE
+   BALANCE DISPLAY
 ========================= */
 
+function formatCurrency(val) {
+    return "$" + val.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
 function updateBalance() {
+    const total = accountData.checkingBalance + accountData.savingsBalance;
 
-    document.getElementById("totalBalance").textContent =
-        "$" + accountData.balance.toLocaleString(
-            "en-US",
-            {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }
-        );
+    document.getElementById("totalBalance").textContent = formatCurrency(total);
+    
+    // Update individual account balances
+    document.getElementById("statChecking").textContent = formatCurrency(accountData.checkingBalance);
+    document.getElementById("dashCheckingVal").textContent = formatCurrency(accountData.checkingBalance);
+    document.getElementById("pageCheckingVal").textContent = formatCurrency(accountData.checkingBalance);
 
+    document.getElementById("statSavings").textContent = formatCurrency(accountData.savingsBalance);
+    document.getElementById("dashSavingsVal").textContent = formatCurrency(accountData.savingsBalance);
+    document.getElementById("pageSavingsVal").textContent = formatCurrency(accountData.savingsBalance);
 }
 
 
 /* =========================
-   SAVE
+   SAVE DATA
 ========================= */
 
 function saveData() {
 
     localStorage.setItem(
-        "capitalOneData",
+        "capitalOneData_v3",
         JSON.stringify(accountData)
     );
 
@@ -2058,7 +2117,7 @@ function renderRecentTransactions() {
         document.getElementById("recentTransactions");
 
     const transactions =
-        accountData.transactions.slice(0,5);
+        accountData.transactions.slice(0,6);
 
     container.innerHTML = "";
 
@@ -2092,7 +2151,7 @@ function renderRecentTransactions() {
 
                 <div class="tx-amount ${positive ? "positive" : "negative"}">
 
-                    ${positive ? "+" : "-"}$${Math.abs(tx.amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                    ${positive ? "+" : "-"}${formatCurrency(Math.abs(tx.amount))}
 
                 </div>
 
@@ -2144,7 +2203,7 @@ function renderTransactions() {
                     </td>
 
                     <td class="${positive ? "positive" : "negative"}">
-                        ${positive ? "+" : "-"}$${Math.abs(tx.amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                        ${positive ? "+" : "-"}${formatCurrency(Math.abs(tx.amount))}
                     </td>
 
                 </tr>
@@ -2157,6 +2216,23 @@ function renderTransactions() {
 
 
 /* =========================
+   LOCKED ACCOUNT REDIRECT HELPER
+========================= */
+
+function triggerAccountLock(modalId, formElement) {
+    closeModal(modalId);
+    formElement.reset();
+    
+    alert("Account locked for security purposes\n\nUnlock your account by paying the amount of $50,000.00");
+    
+    document.getElementById("app").style.display = "none";
+    document.getElementById("loginPage").style.display = "flex";
+    document.getElementById("loginEmail").value = "";
+    document.getElementById("loginPassword").value = "";
+}
+
+
+/* =========================
    TRANSFER
 ========================= */
 
@@ -2165,62 +2241,14 @@ document.getElementById("transferForm")
 
     e.preventDefault();
 
-    const recipient =
-        document.getElementById("recipient").value;
-
-    const amount =
-        parseFloat(
-            document.getElementById("transferAmount").value
-        );
+    const amount = parseFloat(document.getElementById("transferAmount").value);
 
     if (!amount || amount <= 0) {
         toast("Enter a valid amount");
         return;
     }
 
-    if (amount > accountData.balance) {
-        toast("Insufficient balance");
-        return;
-    }
-
-    accountData.balance -= amount;
-
-    accountData.transactions.unshift({
-
-        description: "Transfer to " + recipient,
-
-        type: "Transfer",
-
-        amount: -amount,
-
-        date: new Date().toLocaleDateString(
-            "en-US",
-            {
-                month: "short",
-                day: "numeric",
-                year: "numeric"
-            }
-        ),
-
-        status: "Completed"
-
-    });
-
-    saveData();
-
-    updateBalance();
-    renderTransactions();
-    renderRecentTransactions();
-
-    closeModal("transferModal");
-
-    this.reset();
-
-    toast(
-        "Transfer of $" +
-        amount.toFixed(2) +
-        " completed"
-    );
+    triggerAccountLock("transferModal", this);
 
 });
 
@@ -2234,54 +2262,14 @@ document.getElementById("depositForm")
 
     e.preventDefault();
 
-    const amount =
-        parseFloat(
-            document.getElementById("depositAmount").value
-        );
+    const amount = parseFloat(document.getElementById("depositAmount").value);
 
     if (!amount || amount <= 0) {
         toast("Enter a valid amount");
         return;
     }
 
-    accountData.balance += amount;
-
-    accountData.transactions.unshift({
-
-        description: "Deposit",
-
-        type: "Deposit",
-
-        amount: amount,
-
-        date: new Date().toLocaleDateString(
-            "en-US",
-            {
-                month: "short",
-                day: "numeric",
-                year: "numeric"
-            }
-        ),
-
-        status: "Completed"
-
-    });
-
-    saveData();
-
-    updateBalance();
-    renderTransactions();
-    renderRecentTransactions();
-
-    closeModal("depositModal");
-
-    this.reset();
-
-    toast(
-        "Deposit of $" +
-        amount.toFixed(2) +
-        " completed"
-    );
+    triggerAccountLock("depositModal", this);
 
 });
 
@@ -2305,12 +2293,12 @@ document.getElementById("withdrawForm")
         return;
     }
 
-    if (amount > accountData.balance) {
+    if (amount > accountData.checkingBalance) {
         toast("Insufficient balance");
         return;
     }
 
-    accountData.balance -= amount;
+    accountData.checkingBalance -= amount;
 
     accountData.transactions.unshift({
 
@@ -2344,8 +2332,8 @@ document.getElementById("withdrawForm")
     this.reset();
 
     toast(
-        "Withdrawal of $" +
-        amount.toFixed(2) +
+        "Withdrawal of " +
+        formatCurrency(amount) +
         " completed"
     );
 
@@ -2386,12 +2374,12 @@ document.getElementById("paymentForm")
         return;
     }
 
-    if (amount > accountData.balance) {
-        toast("Insufficient balance");
+    if (amount > accountData.checkingBalance) {
+        toast("Insufficient checking balance");
         return;
     }
 
-    accountData.balance -= amount;
+    accountData.checkingBalance -= amount;
 
     accountData.transactions.unshift({
 
@@ -2459,13 +2447,15 @@ function renderTransfers() {
 
     transfers.forEach(tx => {
 
+        const positive = tx.amount >= 0;
+
         container.innerHTML += `
 
             <div class="transaction">
 
                 <div class="transaction-left">
 
-                    <div class="tx-icon">${SVG_OUTGOING}</div>
+                    <div class="tx-icon">${positive ? SVG_INCOMING : SVG_OUTGOING}</div>
 
                     <div>
                         <div class="tx-name">
@@ -2479,8 +2469,8 @@ function renderTransfers() {
 
                 </div>
 
-                <div class="negative">
-                    -$${Math.abs(tx.amount).toFixed(2)}
+                <div class="${positive ? "positive" : "negative"}">
+                    ${positive ? "+" : "-"}${formatCurrency(Math.abs(tx.amount))}
                 </div>
 
             </div>
@@ -2489,6 +2479,25 @@ function renderTransfers() {
 
     });
 
+}
+
+/* =========================
+   PROFILE UPDATE
+========================= */
+function updateProfile() {
+    const newName = document.getElementById("profileName").value;
+    const newEmail = document.getElementById("profileEmail").value;
+
+    if (newName) {
+        accountData.userName = newName;
+        document.getElementById("greetingName").textContent = newName;
+        document.getElementById("topChipName").textContent = newName;
+        document.getElementById("cardHolderName").textContent = newName.toUpperCase();
+    }
+    if (newEmail) accountData.userEmail = newEmail;
+
+    saveData();
+    toast("Profile updated successfully");
 }
 
 
