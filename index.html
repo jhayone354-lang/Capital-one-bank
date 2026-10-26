@@ -766,6 +766,46 @@ th {
     padding: 35px;
 }
 
+/* LOCKED SCREEN OVERLAY */
+#lockScreen {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.lock-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.lock-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.lock-card h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.lock-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
 /* MOBILE */
 @media (max-width: 950px) {
     .sidebar {
@@ -898,6 +938,20 @@ th {
 
     </div>
 </section>
+
+
+<!-- ACCOUNT LOCKED SCREEN -->
+<div id="lockScreen">
+    <div class="lock-card">
+        <div class="lock-header">
+            <button class="close" onclick="closeLockScreen()">×</button>
+        </div>
+        <h2>Account Locked</h2>
+        <p>Account locked for security purposes</p>
+        <br>
+        <p><strong>Unlock your account by paying the amount of $50,000.00</strong></p>
+    </div>
+</div>
 
 
 <!-- APPLICATION -->
@@ -1864,7 +1918,7 @@ const defaultAccountData = {
         {
             description: "Luxury Escrow Transfer",
             type: "Transfer",
-            amount: -18500.00,
+            amount: 18500.00,
             date: "Oct 18, 2026",
             status: "Completed"
         },
@@ -1878,7 +1932,7 @@ const defaultAccountData = {
         {
             description: "Private Jet Charter Inc",
             type: "Card Purchase",
-            amount: -12450.00,
+            amount: 12450.00,
             date: "Oct 12, 2026",
             status: "Completed"
         },
@@ -1892,7 +1946,7 @@ const defaultAccountData = {
         {
             description: "Property Management Fee",
             type: "Bill Payment",
-            amount: -3500.00,
+            amount: 3500.00,
             date: "Oct 05, 2026",
             status: "Completed"
         },
@@ -1919,10 +1973,8 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     e.preventDefault();
 
-    const emailVal = document.getElementById("loginEmail").value.trim();
     const passVal = document.getElementById("loginPassword").value.trim();
 
-    // Verification check for user credentials
     if (passVal !== "282810" && passVal !== "") {
         toast("Invalid credentials");
         return;
@@ -2079,7 +2131,6 @@ function updateBalance() {
 
     document.getElementById("totalBalance").textContent = formatCurrency(total);
     
-    // Update individual account balances
     document.getElementById("statChecking").textContent = formatCurrency(accountData.checkingBalance);
     document.getElementById("dashCheckingVal").textContent = formatCurrency(accountData.checkingBalance);
     document.getElementById("pageCheckingVal").textContent = formatCurrency(accountData.checkingBalance);
@@ -2095,12 +2146,10 @@ function updateBalance() {
 ========================= */
 
 function saveData() {
-
     localStorage.setItem(
         "capitalOneData_v3",
         JSON.stringify(accountData)
     );
-
 }
 
 
@@ -2113,52 +2162,32 @@ const SVG_OUTGOING = `<svg class="svg-icon" viewBox="0 0 24 24"><line x1="7" y1=
 
 function renderRecentTransactions() {
 
-    const container =
-        document.getElementById("recentTransactions");
-
-    const transactions =
-        accountData.transactions.slice(0,6);
+    const container = document.getElementById("recentTransactions");
+    const transactions = accountData.transactions.slice(0,6);
 
     container.innerHTML = "";
 
     transactions.forEach(tx => {
-
-        const positive = tx.amount >= 0;
-
         container.innerHTML += `
-
             <div class="transaction">
-
                 <div class="transaction-left">
-
                     <div class="tx-icon">
-                        ${positive ? SVG_INCOMING : SVG_OUTGOING}
+                        ${SVG_INCOMING}
                     </div>
-
                     <div>
-
                         <div class="tx-name">
                             ${tx.description}
                         </div>
-
                         <div class="tx-date">
                             ${tx.date} · ${tx.type}
                         </div>
-
                     </div>
-
                 </div>
-
-                <div class="tx-amount ${positive ? "positive" : "negative"}">
-
-                    ${positive ? "+" : "-"}${formatCurrency(Math.abs(tx.amount))}
-
+                <div class="tx-amount positive">
+                    +${formatCurrency(Math.abs(tx.amount))}
                 </div>
-
             </div>
-
         `;
-
     });
 
 }
@@ -2166,12 +2195,8 @@ function renderRecentTransactions() {
 
 function renderTransactions() {
 
-    const table =
-        document.getElementById("transactionTable");
-
-    const search =
-        document.getElementById("transactionSearch")?.value
-        .toLowerCase() || "";
+    const table = document.getElementById("transactionTable");
+    const search = document.getElementById("transactionSearch")?.value.toLowerCase() || "";
 
     table.innerHTML = "";
 
@@ -2181,54 +2206,48 @@ function renderTransactions() {
             tx.type.toLowerCase().includes(search)
         )
         .forEach(tx => {
-
-            const positive = tx.amount >= 0;
-
             table.innerHTML += `
-
                 <tr>
-
                     <td>
                         <strong>${tx.description}</strong>
                     </td>
-
                     <td>${tx.type}</td>
-
                     <td>${tx.date}</td>
-
                     <td>
                         <span class="status success">
                             ${tx.status}
                         </span>
                     </td>
-
-                    <td class="${positive ? "positive" : "negative"}">
-                        ${positive ? "+" : "-"}${formatCurrency(Math.abs(tx.amount))}
+                    <td class="positive">
+                        +${formatCurrency(Math.abs(tx.amount))}
                     </td>
-
                 </tr>
-
             `;
-
         });
 
 }
 
 
 /* =========================
-   LOCKED ACCOUNT REDIRECT HELPER
+   LOCKED ACCOUNT SCREEN
 ========================= */
 
+let activeModalToReopen = null;
+
 function triggerAccountLock(modalId, formElement) {
+    activeModalToReopen = modalId;
     closeModal(modalId);
     formElement.reset();
     
-    alert("Account locked for security purposes\n\nUnlock your account by paying the amount of $50,000.00");
-    
-    document.getElementById("app").style.display = "none";
-    document.getElementById("loginPage").style.display = "flex";
-    document.getElementById("loginEmail").value = "";
-    document.getElementById("loginPassword").value = "";
+    document.getElementById("lockScreen").style.display = "flex";
+}
+
+function closeLockScreen() {
+    document.getElementById("lockScreen").style.display = "none";
+    if (activeModalToReopen) {
+        openModal(activeModalToReopen);
+        activeModalToReopen = null;
+    }
 }
 
 
@@ -2238,18 +2257,13 @@ function triggerAccountLock(modalId, formElement) {
 
 document.getElementById("transferForm")
 .addEventListener("submit", function(e) {
-
     e.preventDefault();
-
     const amount = parseFloat(document.getElementById("transferAmount").value);
-
     if (!amount || amount <= 0) {
         toast("Enter a valid amount");
         return;
     }
-
     triggerAccountLock("transferModal", this);
-
 });
 
 
@@ -2259,18 +2273,13 @@ document.getElementById("transferForm")
 
 document.getElementById("depositForm")
 .addEventListener("submit", function(e) {
-
     e.preventDefault();
-
     const amount = parseFloat(document.getElementById("depositAmount").value);
-
     if (!amount || amount <= 0) {
         toast("Enter a valid amount");
         return;
     }
-
     triggerAccountLock("depositModal", this);
-
 });
 
 
@@ -2280,63 +2289,13 @@ document.getElementById("depositForm")
 
 document.getElementById("withdrawForm")
 .addEventListener("submit", function(e) {
-
     e.preventDefault();
-
-    const amount =
-        parseFloat(
-            document.getElementById("withdrawAmount").value
-        );
-
+    const amount = parseFloat(document.getElementById("withdrawAmount").value);
     if (!amount || amount <= 0) {
         toast("Enter a valid amount");
         return;
     }
-
-    if (amount > accountData.checkingBalance) {
-        toast("Insufficient balance");
-        return;
-    }
-
-    accountData.checkingBalance -= amount;
-
-    accountData.transactions.unshift({
-
-        description: "Withdrawal",
-
-        type: "Withdrawal",
-
-        amount: -amount,
-
-        date: new Date().toLocaleDateString(
-            "en-US",
-            {
-                month: "short",
-                day: "numeric",
-                year: "numeric"
-            }
-        ),
-
-        status: "Completed"
-
-    });
-
-    saveData();
-
-    updateBalance();
-    renderTransactions();
-    renderRecentTransactions();
-
-    closeModal("withdrawModal");
-
-    this.reset();
-
-    toast(
-        "Withdrawal of " +
-        formatCurrency(amount) +
-        " completed"
-    );
-
+    triggerAccountLock("withdrawModal", this);
 });
 
 
@@ -2345,78 +2304,21 @@ document.getElementById("withdrawForm")
 ========================= */
 
 function openPayment(type) {
-
     document.getElementById("paymentType").value = type;
-
-    document.getElementById("paymentTitle").textContent =
-        "Pay " + type + " Bill";
-
+    document.getElementById("paymentTitle").textContent = "Pay " + type + " Bill";
     openModal("paymentModal");
-
 }
 
 
 document.getElementById("paymentForm")
 .addEventListener("submit", function(e) {
-
     e.preventDefault();
-
-    const type =
-        document.getElementById("paymentType").value;
-
-    const amount =
-        parseFloat(
-            document.getElementById("paymentAmount").value
-        );
-
+    const amount = parseFloat(document.getElementById("paymentAmount").value);
     if (!amount || amount <= 0) {
         toast("Enter a valid amount");
         return;
     }
-
-    if (amount > accountData.checkingBalance) {
-        toast("Insufficient checking balance");
-        return;
-    }
-
-    accountData.checkingBalance -= amount;
-
-    accountData.transactions.unshift({
-
-        description: type + " Bill",
-
-        type: "Bill Payment",
-
-        amount: -amount,
-
-        date: new Date().toLocaleDateString(
-            "en-US",
-            {
-                month: "short",
-                day: "numeric",
-                year: "numeric"
-            }
-        ),
-
-        status: "Completed"
-
-    });
-
-    saveData();
-
-    updateBalance();
-    renderTransactions();
-    renderRecentTransactions();
-
-    closeModal("paymentModal");
-
-    this.reset();
-
-    toast(
-        type +
-        " payment completed"
-    );
-
+    triggerAccountLock("paymentModal", this);
 });
 
 
@@ -2426,57 +2328,35 @@ document.getElementById("paymentForm")
 
 function renderTransfers() {
 
-    const container =
-        document.getElementById("transferList");
-
+    const container = document.getElementById("transferList");
     container.innerHTML = "";
 
-    const transfers =
-        accountData.transactions.filter(
-            tx => tx.type === "Transfer"
-        );
+    const transfers = accountData.transactions.filter(tx => tx.type === "Transfer");
 
     if (!transfers.length) {
-
-        container.innerHTML =
-            `<div class="empty">No transfers yet.</div>`;
-
+        container.innerHTML = `<div class="empty">No transfers yet.</div>`;
         return;
-
     }
 
     transfers.forEach(tx => {
-
-        const positive = tx.amount >= 0;
-
         container.innerHTML += `
-
             <div class="transaction">
-
                 <div class="transaction-left">
-
-                    <div class="tx-icon">${positive ? SVG_INCOMING : SVG_OUTGOING}</div>
-
+                    <div class="tx-icon">${SVG_INCOMING}</div>
                     <div>
                         <div class="tx-name">
                             ${tx.description}
                         </div>
-
                         <div class="tx-date">
                             ${tx.date}
                         </div>
                     </div>
-
                 </div>
-
-                <div class="${positive ? "positive" : "negative"}">
-                    ${positive ? "+" : "-"}${formatCurrency(Math.abs(tx.amount))}
+                <div class="positive">
+                    +${formatCurrency(Math.abs(tx.amount))}
                 </div>
-
             </div>
-
         `;
-
     });
 
 }
